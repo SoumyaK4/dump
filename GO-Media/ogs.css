@@ -129,7 +129,8 @@
     overflow: visible;
 }
 
-/* The HTML contains an inline gray background and purple heading. */
+/* Support both the cleaned markup and the original inline background. */
+.User .about-container div.soumya-projects,
 .User .about-container div[style*="background-color"] {
     padding: clamp(1rem, 3vw, 1.75rem);
     border: 1px solid var(--soumya-line);
@@ -312,7 +313,9 @@
     .User .profile-card {
         padding: 1rem 0.75rem;
     }
+}
 
+@media (max-width: 1023px) {
     .User .about-container table {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
@@ -335,6 +338,8 @@
     .User .about-container tr:last-child td:nth-child(2) { grid-row: 4; }
     .User .about-container tr:first-child td:nth-child(3) { grid-row: 5; }
     .User .about-container tr:last-child td:nth-child(3) { grid-row: 6; }
+    .User .about-container tr:first-child td:nth-child(4) { grid-row: 7; }
+    .User .about-container tr:last-child td:nth-child(4) { grid-row: 8; }
 
     .User .about-container tr:last-child td {
         margin-bottom: 0.75rem;
