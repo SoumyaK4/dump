@@ -1,4 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Alata&display=swap");
+
+/* Apply the page theme only while Soumya's profile is mounted in OGS. */
+:root:has(.User .avatar-container [data-player-id="1746984"]),
 .User.container {
+    --soumya-font: "Alata", "Segoe UI", sans-serif;
+    --soumya-sai-size: clamp(92px, 11vw, 170px);
     --soumya-bg: #0e1c16;
     --soumya-panel: #15291f;
     --soumya-soft: #1c3427;
@@ -20,15 +26,64 @@
     --card-background-color: var(--soumya-panel);
     --chart-area: var(--soumya-soft);
     --chart-line: var(--soumya-sage);
+    --background-color: var(--soumya-bg);
+    --text-color: var(--soumya-ink);
+    --text-color-active: var(--soumya-gold);
+    --text-dimmed: var(--soumya-muted);
+    --link-color: var(--soumya-sage);
+    --link-color-active: var(--soumya-gold);
+    --navbar-background-color: var(--soumya-panel);
+    --navbar-highlight-background-color: var(--soumya-soft);
+    --default-button: var(--soumya-soft);
+    --default-button-color: var(--soumya-ink);
+    --default-button-light: #294733;
+    --default-button-dark: var(--soumya-bg);
+    --default-button-darker: var(--soumya-line);
+    --input-fg: var(--soumya-ink);
+    --input-border: var(--soumya-line);
+    --control-color-scheme: dark;
+}
 
-    box-sizing: border-box;
-    max-width: 1240px;
-    padding: 2.5rem clamp(0.75rem, 2vw, 2rem) 3rem;
-    border-radius: 0 0 1.25rem 1.25rem;
+:root:has(.User .avatar-container [data-player-id="1746984"]) {
+    color-scheme: dark;
+    background: var(--soumya-bg);
+    scrollbar-color: var(--soumya-line) var(--soumya-bg);
+}
+
+:root:has(.User .avatar-container [data-player-id="1746984"]) body {
     background:
         radial-gradient(ellipse at 15% 0, #263e27, transparent 48%),
         var(--soumya-bg);
     color: var(--soumya-ink);
+    font-family: var(--soumya-font);
+}
+
+:root:has(.User .avatar-container [data-player-id="1746984"]) :is(#main-content, #default-variant-container, .MainSection) {
+    background: transparent;
+}
+
+:root:has(.User .avatar-container [data-player-id="1746984"]) :is(button, input, textarea, select) {
+    font-family: var(--soumya-font);
+}
+
+:root:has(.User .avatar-container [data-player-id="1746984"]) header.NavBar {
+    border-bottom: 1px solid var(--soumya-line);
+    box-shadow: 0 3px 16px rgba(0, 0, 0, 0.18);
+}
+
+/* OGS's light-mode logo has dark lettering on our dark navigation. */
+:root[data-theme="light"]:has(.User .avatar-container [data-player-id="1746984"]) .ogs-nav-logo {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+.User.container {
+    box-sizing: border-box;
+    max-width: 1240px;
+    padding: 2.5rem clamp(0.75rem, 2vw, 2rem) 3rem;
+    border-radius: 0 0 1.25rem 1.25rem;
+    background: transparent;
+    color: var(--soumya-ink);
+    font-family: var(--soumya-font);
 }
 
 .User a {
@@ -65,7 +120,7 @@
 
 .User .avatar-container .Player-username {
     color: var(--soumya-sage);
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: var(--soumya-font);
     font-size: clamp(1.8rem, 4vw, 2.5rem);
     font-weight: 700;
     letter-spacing: -0.04em;
@@ -95,12 +150,14 @@
     background: var(--soumya-soft);
 }
 
-.User .ratings-grid .rating-entry.unset {
+.User.container .ratings-grid .rating-entry.unset {
     color: #8fa38e;
 }
 
 .User .ratings-chart svg text {
-    fill: var(--soumya-muted);
+    /* D3 writes inline fills; keep chart labels readable on forest green. */
+    fill: var(--soumya-muted) !important;
+    font-family: var(--soumya-font);
 }
 
 .User .Card {
@@ -114,7 +171,7 @@
     position: relative;
     min-width: 0;
     max-height: none;
-    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-family: var(--soumya-font);
     line-height: 1.7;
 }
 
@@ -188,7 +245,7 @@
     border-collapse: separate;
     border-spacing: 0.5rem 0;
     table-layout: fixed;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: var(--soumya-font);
     font-size: 0.85rem;
     line-height: 1.6;
 }
@@ -223,76 +280,51 @@
     color: var(--soumya-muted);
 }
 
-/* Sai floats within this scene, clear of profile links and controls. */
+/* The fixed overlay follows the viewport instead of the About card. */
 .User .about-container .moving-x-container {
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-    border: 1px solid var(--soumya-line);
-    border-radius: 0.85rem;
-    background:
-        radial-gradient(ellipse at 50% 35%, #365039, transparent 65%),
-        var(--soumya-bg);
+    position: fixed;
+    inset: calc(var(--navbar-height, 3rem) + 1rem) 1rem 1rem;
+    z-index: 190;
     pointer-events: none;
     user-select: none;
 }
 
-.User .about-container .moving-y-container,
+.User .about-container .moving-x-container * {
+    pointer-events: none;
+}
+
+/* Independent horizontal and vertical travel keeps Sai roaming naturally. */
+.User .about-container .moving-y-container {
+    width: var(--soumya-sai-size);
+    height: var(--soumya-sai-size);
+    animation: soumya-sai-travel-x 37s ease-in-out infinite alternate;
+}
+
 .User .about-container .sai-container {
     position: relative;
     width: 100%;
     height: 100%;
+    animation: soumya-sai-travel-y 29s ease-in-out infinite alternate;
 }
 
+/* Hide the old boxed scene when using earlier versions of the bio HTML. */
 .User .about-container .backdrop {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(182, 212, 162, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(182, 212, 162, 0.1) 1px, transparent 1px);
-    background-position: center;
-    background-size: 28px 28px;
-}
-
-.User .about-container .stone-container {
-    position: absolute;
-    bottom: 1.1rem;
-    left: 50%;
-    display: flex;
-    gap: 0.6rem;
-    transform: translateX(-50%);
-}
-
-.User .about-container .stone {
-    width: 1.15rem;
-    height: 1.15rem;
-    border-radius: 50%;
-    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
-}
-
-.User .about-container .stone.black {
-    background: radial-gradient(circle at 35% 28%, #666, #151515 65%);
-}
-
-.User .about-container .stone.white {
-    border: 1px solid #ccd1ce;
-    background: radial-gradient(circle at 35% 28%, #fff, #e1e6e2 75%);
+    display: none;
 }
 
 .User .about-container .flying-sai,
 .User .about-container .sai-ghostly-outline {
     position: absolute;
-    top: 0.5rem;
-    left: calc(50% - 90px);
-    width: 180px;
-    height: 150px;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     max-width: none;
     object-fit: contain;
 }
 
 .User .about-container .sai-ghostly-outline {
     opacity: 0.16;
-    transform: translateX(3rem) rotate(8deg);
+    transform: translate(0.25rem, 0.25rem) rotate(8deg);
 }
 
 .User .about-container .flying-sai {
@@ -300,9 +332,19 @@
     animation: soumya-sai-float 7s ease-in-out infinite;
 }
 
+@keyframes soumya-sai-travel-x {
+    from { transform: translateX(0); }
+    to { transform: translateX(max(0px, calc(100vw - var(--soumya-sai-size) - 2rem))); }
+}
+
+@keyframes soumya-sai-travel-y {
+    from { transform: translateY(0); }
+    to { transform: translateY(max(0px, calc(100dvh - var(--navbar-height, 3rem) - var(--soumya-sai-size) - 2rem))); }
+}
+
 @keyframes soumya-sai-float {
-    0%, 100% { transform: translate(-12px, 3px) rotate(-2deg); }
-    50% { transform: translate(12px, -3px) rotate(2deg); }
+    0%, 100% { transform: translateY(3px) rotate(-2deg); }
+    50% { transform: translateY(-3px) rotate(2deg); }
 }
 
 @media (max-width: 767px) {
@@ -312,6 +354,18 @@
 
     .User .profile-card {
         padding: 1rem 0.75rem;
+    }
+
+    /* Let the chart scroll instead of squeezing dates and ranks together. */
+    .User.container .ratings-row,
+    .User .ratings-chart {
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .User .ratings-chart > .RatingsChart {
+        min-width: 40rem;
     }
 }
 
@@ -351,6 +405,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .User .about-container .moving-x-container {
+        inset: auto 1rem 1rem auto;
+        width: var(--soumya-sai-size);
+        height: var(--soumya-sai-size);
+    }
+
+    .User .about-container .moving-y-container,
+    .User .about-container .sai-container,
     .User .about-container .flying-sai {
         animation: none;
     }
