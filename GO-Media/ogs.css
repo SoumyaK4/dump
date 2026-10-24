@@ -1,84 +1,356 @@
-body {
+.User.container {
+    --soumya-bg: #0e1c16;
+    --soumya-panel: #15291f;
+    --soumya-soft: #1c3427;
+    --soumya-ink: #e7ede3;
+    --soumya-muted: #b0c3b1;
+    --soumya-sage: #b6d4a2;
+    --soumya-gold: #e1c68f;
+    --soumya-line: #38523d;
+    --soumya-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    /* Use OGS's own tokens so controls inherit readable dark colors. */
+    --fg: var(--soumya-ink);
+    --bg: var(--soumya-bg);
+    --shade0: var(--soumya-ink);
+    --shade1: var(--soumya-muted);
+    --shade2: var(--soumya-muted);
+    --shade3: var(--soumya-line);
+    --shade4: var(--soumya-soft);
+    --shade5: var(--soumya-panel);
+    --card-background-color: var(--soumya-panel);
+    --chart-area: var(--soumya-soft);
+    --chart-line: var(--soumya-sage);
+
+    box-sizing: border-box;
+    max-width: 1240px;
+    padding: 2.5rem clamp(0.75rem, 2vw, 2rem) 3rem;
+    border-radius: 0 0 1.25rem 1.25rem;
+    background:
+        radial-gradient(ellipse at 15% 0, #263e27, transparent 48%),
+        var(--soumya-bg);
+    color: var(--soumya-ink);
+}
+
+.User a {
+    color: var(--soumya-sage);
+}
+
+.User a:hover {
+    color: var(--soumya-gold);
+}
+
+.User a:focus-visible {
+    border-radius: 0.2rem;
+    outline: 2px solid var(--soumya-gold);
+    outline-offset: 4px;
+}
+
+.User .profile-card {
+    padding: clamp(1rem, 3vw, 2rem);
+    border: 1px solid var(--soumya-line);
+    border-radius: 1rem;
+    background: var(--soumya-panel);
+    box-shadow: var(--soumya-shadow);
+}
+
+.User .avatar-and-ratings-row {
+    gap: 1.5rem;
+}
+
+.User.container .avatar-container {
+    gap: 0.35rem;
+    min-width: min(100%, 16rem);
+    padding: 0;
+}
+
+.User .avatar-container .Player-username {
+    color: var(--soumya-sage);
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    text-align: center;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
 }
 
-.container {
-    max-width: none !important;
-    background: linear-gradient(to bottom right, #000000, #0b040c, #13091a, #181029, #1a1936, #1a2441, #183049, #153c4d, #14494e, #16554a, #1a6045, #236a3d, #307136, #407631, #53792e, #697a30 ,#7f7a36, #957941, #a97851, #ba7964, #c77a7b, #cf7e92, #d384a9, #d48cbf, #d196d1, #cda2e0, #c8afea, #c3bcf0, #c1caf3, #c2d6f2, #c5e0f1, #cde9ef, #d7f1ee, #e4f6f0, #f1fbf5, #ffffff) !important;
+.User .avatar-container > .PlayerIcon {
+    box-sizing: border-box;
+    margin: 0.5rem 0;
+    padding: 0.35rem;
+    border: 1px solid var(--soumya-line);
+    border-radius: 50%;
+    background: #f0f0e7;
+    box-shadow: 0 0 0 5px var(--soumya-soft);
 }
 
-.avatar-container .Player-username {
-    font-size: 2em;
-    font-family: "Comic Sans MS", cursive, serif;
+.User .ratings-container {
+    min-width: 0;
+    max-width: 100%;
 }
 
-h2, h3 {
-    animation:rainbowText 2s infinite;
-}
-@keyframes rainbowText{
-    0%   {  color: #FF0900; }
-    17%  {  color: #FF7F00; }
-    33%  {  color: #FFEF00; }
-    50%  {  color: #00F11D; }
-    67%  {  color: #0079FF; }
-    83%  {  color: #A800FF; }
-    100% {  color: #FF0900; }
+.User .ratings-title {
+    color: var(--soumya-sage);
 }
 
-.about-container {
-    /* overflow: hidden; */
+.User .ratings-grid .rating-entry.active {
+    border-color: var(--soumya-sage);
+    background: var(--soumya-soft);
+}
+
+.User .ratings-grid .rating-entry.unset {
+    color: #8fa38e;
+}
+
+.User .ratings-chart svg text {
+    fill: var(--soumya-muted);
+}
+
+.User .Card {
+    border-color: var(--soumya-line);
+    border-radius: 0.85rem;
+    background: var(--soumya-panel);
+    box-shadow: var(--soumya-shadow);
+}
+
+.User .about-container {
     position: relative;
+    min-width: 0;
+    max-height: none;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    line-height: 1.7;
 }
-.about-container h1 {
-    color: limegreen;
-    font-size: 3em;
-    position: absolute;
+
+/* OGS wraps the bio in .about-markdown; the supplied HTML adds another. */
+.User .about-container > .about-markdown {
+    min-width: 0;
+    overflow: visible;
+}
+
+.User .about-container .about-markdown .about-markdown {
+    margin-top: 1rem;
+    overflow: visible;
+}
+
+/* The HTML contains an inline gray background and purple heading. */
+.User .about-container div[style*="background-color"] {
+    padding: clamp(1rem, 3vw, 1.75rem);
+    border: 1px solid var(--soumya-line);
+    border-radius: 0.85rem;
+    background: var(--soumya-panel) !important;
+    overflow-wrap: anywhere;
+}
+
+.User .about-container h1,
+.User .about-container h2,
+.User .about-container h3 {
+    position: static;
+    color: var(--soumya-sage);
+    font-family: inherit;
+    line-height: 1.45;
+    text-wrap: balance;
+}
+
+.User .about-container h1,
+.User .about-container h2 {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.25rem, 2.2vw, 1.65rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+}
+
+.User .about-container h3 {
+    margin: 1.5rem 0 0.75rem;
+    color: var(--soumya-gold) !important;
+    font-size: 1.1rem;
+}
+
+.User .about-container a {
+    text-decoration: underline;
+    text-decoration-color: var(--soumya-line);
+    text-underline-offset: 0.2em;
+    transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.User .about-container a:hover {
+    text-decoration-color: currentColor;
+}
+
+.User .about-container hr {
+    margin: 1.25rem 0;
+    border: 0;
+    border-top: 1px solid var(--soumya-line);
+}
+
+/* Each column keeps its original title and description together. */
+.User .about-container table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border: 0;
+    border-collapse: separate;
+    border-spacing: 0.5rem 0;
+    table-layout: fixed;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.User .about-container td {
+    padding: 0.85rem;
+    border: 1px solid var(--soumya-line);
+    background: var(--soumya-soft);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.User .about-container tr:first-child td {
+    padding-top: 0.85rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 0;
+    border-radius: 0.65rem 0.65rem 0 0;
+}
+
+.User .about-container tr:first-child a {
+    display: block;
+    padding: 0.35rem 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.User .about-container tr:last-child td {
+    padding-top: 0.25rem;
+    border-top: 0;
+    border-radius: 0 0 0.65rem 0.65rem;
+    color: var(--soumya-muted);
+}
+
+/* Sai floats within this scene, clear of profile links and controls. */
+.User .about-container .moving-x-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    border: 1px solid var(--soumya-line);
+    border-radius: 0.85rem;
+    background:
+        radial-gradient(ellipse at 50% 35%, #365039, transparent 65%),
+        var(--soumya-bg);
+    pointer-events: none;
+    user-select: none;
+}
+
+.User .about-container .moving-y-container,
+.User .about-container .sai-container {
+    position: relative;
     width: 100%;
     height: 100%;
-    /* Starting position */
-    -moz-transform:translateX(100%);
-    -webkit-transform:translateX(100%);	
-    transform:translateX(100%);
-    /* Apply animation to this element */	
-    -moz-animation: scrolling 15s linear infinite;
-    -webkit-animation: scrolling 15s linear infinite;
-    animation: scrolling 15s linear infinite;
 }
-/* Move it (define the animation) */
-@-moz-keyframes scrolling {
-    0%   { -moz-transform: translateX(100%); }
-    100% { -moz-transform: translateX(-100%); }
+
+.User .about-container .backdrop {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(182, 212, 162, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(182, 212, 162, 0.1) 1px, transparent 1px);
+    background-position: center;
+    background-size: 28px 28px;
 }
-@-webkit-keyframes scrolling {
-    0%   { -webkit-transform: translateX(100%); }
-    100% { -webkit-transform: translateX(-100%); }
+
+.User .about-container .stone-container {
+    position: absolute;
+    bottom: 1.1rem;
+    left: 50%;
+    display: flex;
+    gap: 0.6rem;
+    transform: translateX(-50%);
 }
-@keyframes scrolling {
-     0%   { 
-        -moz-transform: translateX(100%); /* Firefox bug fix */
-        -webkit-transform: translateX(100%); /* Firefox bug fix */
-        transform: translateX(100%); 		
+
+.User .about-container .stone {
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+}
+
+.User .about-container .stone.black {
+    background: radial-gradient(circle at 35% 28%, #666, #151515 65%);
+}
+
+.User .about-container .stone.white {
+    border: 1px solid #ccd1ce;
+    background: radial-gradient(circle at 35% 28%, #fff, #e1e6e2 75%);
+}
+
+.User .about-container .flying-sai,
+.User .about-container .sai-ghostly-outline {
+    position: absolute;
+    top: 0.5rem;
+    left: calc(50% - 90px);
+    width: 180px;
+    height: 150px;
+    max-width: none;
+    object-fit: contain;
+}
+
+.User .about-container .sai-ghostly-outline {
+    opacity: 0.16;
+    transform: translateX(3rem) rotate(8deg);
+}
+
+.User .about-container .flying-sai {
+    filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.25));
+    animation: soumya-sai-float 7s ease-in-out infinite;
+}
+
+@keyframes soumya-sai-float {
+    0%, 100% { transform: translate(-12px, 3px) rotate(-2deg); }
+    50% { transform: translate(12px, -3px) rotate(2deg); }
+}
+
+@media (max-width: 767px) {
+    .User.container {
+        padding-top: 1.25rem;
     }
-    100% { 
-        -moz-transform: translateX(-100%); /* Firefox bug fix */
-        -webkit-transform: translateX(-100%); /* Firefox bug fix */
-        transform: translateX(-100%); 
+
+    .User .profile-card {
+        padding: 1rem 0.75rem;
+    }
+
+    .User .about-container table {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        border-spacing: 0;
+    }
+
+    .User .about-container tbody,
+    .User .about-container tr {
+        display: contents;
+    }
+
+    /* Pair each title with its description when the columns stack. */
+    .User .about-container td {
+        grid-column: 1;
+    }
+
+    .User .about-container tr:first-child td:nth-child(1) { grid-row: 1; }
+    .User .about-container tr:last-child td:nth-child(1) { grid-row: 2; }
+    .User .about-container tr:first-child td:nth-child(2) { grid-row: 3; }
+    .User .about-container tr:last-child td:nth-child(2) { grid-row: 4; }
+    .User .about-container tr:first-child td:nth-child(3) { grid-row: 5; }
+    .User .about-container tr:last-child td:nth-child(3) { grid-row: 6; }
+
+    .User .about-container tr:last-child td {
+        margin-bottom: 0.75rem;
+    }
+
+    .User .about-container td br {
+        display: none;
     }
 }
 
-.about-container h3 {
-    animation:blinkingText 1.5s infinite;
-}
-@keyframes blinkingText{
-    0%   {  opacity: 1; }
-    49%  {  opacity: 1; }
-    60%  {  opacity: 0; }
-    99%  {  opacity: 0; }
-    100% {  opacity: 1; }
-}
+@media (prefers-reduced-motion: reduce) {
+    .User .about-container .flying-sai {
+        animation: none;
+    }
 
-/* clean up the menu */
-a[href="/leaderboards"] {
-    display: none !important;
+    .User .about-container a {
+        transition: none;
+    }
 }
