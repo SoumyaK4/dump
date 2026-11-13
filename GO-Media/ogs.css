@@ -293,71 +293,198 @@
     color: var(--soumya-muted);
 }
 
-/* The fixed overlay follows the viewport instead of the About card. */
+/* Sai motion and hover effects restored from the reference profile. */
+.User .about-container .sai-container {
+  display: block;
+  position: relative;
+  width: 10em;
+}
+
+.User .about-container .sai-container .flying-sai, .User .about-container .sai-container .sai-ghostly-outline, .User .about-container .sai-container > .backdrop {
+  position: absolute;
+  width: 100%;
+}
+
+.User .about-container .sai-container .sai-ghostly-outline {
+  filter: blur(1px);
+  opacity: 0.5;
+  transform: scale(1.25);
+  transition: transform var(--timing-duration, 0.5s) ease-out, opacity 0.5s ease-out;
+  top: -1.5vw;
+  left: 1vw;
+}
+
+.User .about-container .sai-container:hover .sai-ghostly-outline {
+  --timing-duration: 10s;
+  transform: scale(3);
+  opacity: 0.9;
+}
+
+.User .about-container .sai-container:hover .backdrop {
+  opacity: 1;
+}
+
+.User .about-container .backdrop {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
+
+.User .about-container .sai-container:active > .backdrop {
+  visibility: visible;
+}
+
+.User .about-container .sai-container:active .sai-ghostly-outline {
+  opacity: 0.2;
+}
+
+.User .about-container .moving-y-container {
+  animation: soumya-sai-original-yAxis 50s infinite cubic-bezier(0.3, 0.27, 0.07, 1.64) alternate;
+  animation-delay: 3s;
+  animation-direction: var(--moving-animation-direction);
+}
+
+.User .about-container .moving-x-container {
+  position: absolute;
+  top: -10vw;
+  left: -10vw;
+  --moving-animation-direction: normal;
+  animation: soumya-sai-original-xAxis 33s infinite cubic-bezier(0.02, 0.01, 0.21, 1) alternate;
+  animation-delay: 3s;
+  animation-direction: var(--moving-animation-direction);
+}
+
+.User .about-container .moving-x-container.still {
+  top: 20vw;
+  left: 20vw;
+  animation: none;
+}
+.User .about-container .moving-x-container.still .moving-y-container {
+  animation: none;
+}
+
+@keyframes soumya-sai-original-yAxis {
+  0% {
+    animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+    transform: translateY(30vh);
+  }
+  20% {
+    animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+    transform: translateY(45vh);
+  }
+  30% {
+    animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+    transform: translateY(60vh);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+    transform: translateY(90vh);
+  }
+  70% {
+    animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+    transform: translateY(50vh);
+  }
+}
+
+@keyframes soumya-sai-original-xAxis {
+  0% {
+    animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    transform: translateX(0);
+  }
+  10% {
+    animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    transform: translateX(30vw);
+  }
+  20% {
+    animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    transform: translateX(15vw);
+  }
+  30% {
+    animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    transform: translateX(60vw);
+  }
+  50% {
+    animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    transform: translateX(10vw);
+  }
+  70% {
+    animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+    transform: translateX(80vw);
+  }
+}
+
+.User .about-container .backdrop {
+  perspective: 500px; /* Adds perspective to enhance 3D effect */
+}
+
+.User .about-container .stone-container {
+  animation: soumya-sai-original-rotate-clockwise 4s linear infinite;
+}
+
+.User .about-container .stone {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 150px;
+  --index: 0;
+  transform: translateX(-60px) rotate(calc(var(--index) * 45deg));
+  filter: blur(0.3px); /* Softens edges for hand-drawn look */
+  border: 1px solid rgba(0, 0, 0, 0.3); /* Adds an outline like a sketch */
+}
+
+.User .about-container .stone.black {
+  background: radial-gradient(circle, #666 20%, #222 80%, #111 100%);
+  background-size: 120% 120%; /* Adds texture by enlarging gradient */
+  background-position: center;
+}
+
+.User .about-container .stone.white {
+  background: radial-gradient(circle, #fefefe 20%, #eee 80%, #ddd 100%);
+  background-size: 120% 120%;
+  background-position: center;
+  animation: soumya-sai-original-rotate-clockwise 3s linear infinite;
+}
+
+.User .about-container .stone:nth-child(1) {
+  --index: 1;
+}
+
+.User .about-container .stone:nth-child(2) {
+  --index: 2;
+}
+
+.User .about-container .stone:nth-child(3) {
+  --index: 3;
+}
+
+@keyframes soumya-sai-original-rotate-clockwise {
+  0% {
+    transform: rotate(0deg) translateX(60px) rotateY(30deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(60px) rotateY(30deg);
+  }
+}
+
+/* Keep Sai above the profile and give the embedded SVG a square viewport. */
 .User .about-container .moving-x-container {
     position: fixed;
-    inset: calc(var(--navbar-height, 3rem) + 1rem) 1rem 1rem;
     z-index: 190;
     pointer-events: none;
     user-select: none;
 }
-
-.User .about-container .moving-x-container * {
-    pointer-events: none;
-}
-
-/* Independent horizontal and vertical travel keeps Sai roaming naturally. */
-.User .about-container .moving-y-container {
-    width: var(--soumya-sai-size);
-    height: var(--soumya-sai-size);
-    animation: soumya-sai-travel-x 37s ease-in-out infinite alternate;
-}
-
 .User .about-container .sai-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    animation: soumya-sai-travel-y 29s ease-in-out infinite alternate;
+    pointer-events: auto;
 }
-
-/* Hide the old boxed scene when using earlier versions of the bio HTML. */
-.User .about-container .backdrop {
-    display: none;
-}
-
 .User .about-container .flying-sai,
 .User .about-container .sai-ghostly-outline {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
     max-width: none;
-    object-fit: contain;
 }
-
 .User .about-container .sai-ghostly-outline {
-    opacity: 0.16;
-    transform: translate(0.25rem, 0.25rem) rotate(8deg);
-}
-
-.User .about-container .flying-sai {
-    filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.25));
-    animation: soumya-sai-float 7s ease-in-out infinite;
-}
-
-@keyframes soumya-sai-travel-x {
-    from { transform: translateX(0); }
-    to { transform: translateX(max(0px, calc(100vw - var(--soumya-sai-size) - 2rem))); }
-}
-
-@keyframes soumya-sai-travel-y {
-    from { transform: translateY(0); }
-    to { transform: translateY(max(0px, calc(100dvh - var(--navbar-height, 3rem) - var(--soumya-sai-size) - 2rem))); }
-}
-
-@keyframes soumya-sai-float {
-    0%, 100% { transform: translateY(3px) rotate(-2deg); }
-    50% { transform: translateY(-3px) rotate(2deg); }
+    height: 10em;
+    pointer-events: none;
 }
 
 @media (max-width: 767px) {
@@ -422,11 +549,14 @@
         inset: auto 1rem 1rem auto;
         width: var(--soumya-sai-size);
         height: var(--soumya-sai-size);
+        animation: none;
     }
 
     .User .about-container .moving-y-container,
     .User .about-container .sai-container,
-    .User .about-container .flying-sai {
+    .User .about-container .flying-sai,
+    .User .about-container .stone-container,
+    .User .about-container .stone.white {
         animation: none;
     }
 
